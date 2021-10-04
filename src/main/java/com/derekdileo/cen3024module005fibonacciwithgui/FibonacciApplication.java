@@ -15,10 +15,69 @@ import java.util.Map;
  * @author Derek DiLeo
   */
 public class FibonacciApplication extends Application {
+
+    /** Map<Integer, Long> to store positions and execution times (nanoSec) for each method call
+     */
+    public static Map<Integer, Long> recursiveTimes = new LinkedHashMap<>();
+    public static Map<Integer, Long> iterativeTimes = new LinkedHashMap<>();
+
+    /** main() will
+     * - compute fibonacci number using FibonacciNumbers class methods
+     * - store execution times of each step to LinkedHashMaps
+     * - add all as (x,y) coordinates of JavaFX LineChart
+     * - display the chart to the user to view differences in time complexity between iterative and recursive methods
+     * @param args mandatory String[] array for console line arguments of data type String
+     * @author Derek DiLeo
+     */
+    public static void main(String[] args) {
+
+        // Desired fibonacci number to be calculated (starting from 0)
+        //int position = 11;
+//                UserInputBox.display("Fibonacci Number Calculator", "Which Fibonacci position would you like to calculate?");
+
+//        // Compute time results of fibRecursive(i) && fibIterative(i) for 0 <= i < position
+//        // Results are printed to console AND stored in LinkedHashMaps as Key/Value pairs of position / execution time
+//        // These data will be used to create and display a JavaFX line graph
+//        // which will visibly show differences in time complexity of both methods
+//        for (int i = 0; i < position; i++) {
+//            recursiveTimes.put(i, FibonacciNumbers.printRecursive(i));
+//            iterativeTimes.put(i, FibonacciNumbers.printIterative(i));
+//        }
+
+        // Display line graph of results
+        launch();
+    }
+
+    Stage window;
+
     @Override
     public void start(Stage stage) throws IOException {
+
+        window = stage;
+
+        int position = UserInputBox.display("Fibonacci Number Calculator", "Which Fibonacci position would you like to calculate?");
+
+        // Compute time results of fibRecursive(i) && fibIterative(i) for 0 <= i < position
+        // Results are printed to console AND stored in LinkedHashMaps as Key/Value pairs of position / execution time
+        // These data will be used to create and display a JavaFX line graph
+        // which will visibly show differences in time complexity of both methods
+        for (int i = 0; i < position; i++) {
+            recursiveTimes.put(i, FibonacciNumbers.printRecursive(i));
+            iterativeTimes.put(i, FibonacciNumbers.printIterative(i));
+        }
+
+
+
         // Set stage title
-        stage.setTitle("Fibonacci Time Complexity"); // set stage title
+        window.setTitle("Fibonacci Time Complexity");
+
+        // Ask if user wants to exit!
+        window.setOnCloseRequest(e -> {
+            // Consume the event to allow ConfirmBox to do its job
+            e.consume();
+            closeProgram();
+        });
+
 
         // Create and label x- and y-axis
         final NumberAxis xAxis = new NumberAxis();
@@ -44,38 +103,20 @@ public class FibonacciApplication extends Application {
         // Create scene with lineChart, set stage with scene and show
         Scene scene = new Scene(lineChart, 800, 600);
         lineChart.getData().addAll(recursiveSeries, iterativeSeries);
-        stage.setScene(scene);
-        stage.show();
+        window.setScene(scene);
+
+        window.show();
     }
 
-    /** Map<Integer, Long> to store positions and execution times (nanoSec) for each method call
-     */
-    public static Map<Integer, Long> recursiveTimes = new LinkedHashMap<>();
-    public static Map<Integer, Long> iterativeTimes = new LinkedHashMap<>();
-
-    /** main() will
-     * - compute fibonacci number using FibonacciNumbers class methods
-     * - store execution times of each step to LinkedHashMaps
-     * - add all as (x,y) coordinates of JavaFX LineChart
-     * - display the chart to the user to view differences in time complexity between iterative and recursive methods
-     * @param args mandatory String[] array for console line arguments of data type String
-     * @author Derek DiLeo
-     */
-    public static void main(String[] args) {
-
-        // Desired fibonacci number to be calculated (starting from 0)
-        int position = 11;
-
-        // Compute time results of fibRecursive(i) && fibIterative(i) for 0 <= i < position
-        // Results are printed to console AND stored in LinkedHashMaps as Key/Value pairs of position / execution time
-        // These data will be used to create and display a JavaFX line graph
-        // which will visibly show differences in time complexity of both methods
-        for (int i = 0; i < position; i++) {
-            recursiveTimes.put(i, FibonacciNumbers.printRecursive(i));
-            iterativeTimes.put(i, FibonacciNumbers.printIterative(i));
+    private void closeProgram() {
+        // Ask if user wants to exit
+        Boolean answer = ConfirmBox.display("", "Are you sure you want to exit?");
+        if (answer) {
+            // Run any necessary code before window closes:
+            // Save / transfer files, etc...
+            System.out.println("Window Closed!");
+            window.close();
         }
-
-        // Display line graph of results
-        launch();
     }
+
 }
