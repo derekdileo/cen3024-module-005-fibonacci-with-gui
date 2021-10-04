@@ -59,6 +59,9 @@ public class FibonacciApplication extends Application {
         // Gather desired fibonacci position from user (with integer validation)
         final int position = UserInputBox.display("Fibonacci Number Calculator", "Which Fibonacci position would you like to calculate?");
 
+        // Print position to console
+        System.out.println("User has chosen to compute Fibonacci position: " + position);
+        
         // Compute time results of fibRecursive(i) && fibIterative(i) for 0 <= i < position
         // Results are printed to console AND stored in LinkedHashMaps as Key/Value pairs of position / execution time
         // These data will be used to create and display a JavaFX line graph
