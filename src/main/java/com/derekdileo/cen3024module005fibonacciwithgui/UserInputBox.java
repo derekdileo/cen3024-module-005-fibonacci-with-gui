@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
+/** UserInputBox Class is used to gather fibonacci position from user with integer validation in place.
  *
  */
 public class UserInputBox {
@@ -34,8 +34,6 @@ public class UserInputBox {
             e.consume();
             closeProgram();
         });
-
-
 
         // Ask user for fibonacci position
         Label label = new Label();
@@ -62,17 +60,15 @@ public class UserInputBox {
                     isNumeric = true;
                 }
             }
-
-            // Validate input
-            if (isNumeric && e.getCode().equals((KeyCode.ENTER))) {
+            // Validate user input is numeric && >= 0 && ENTER key was pressed
+            if(isNumeric && (Integer.parseInt(strPosition) >= 0) && e.getCode().equals((KeyCode.ENTER))) {
                 intPosition = Integer.parseInt(strPosition);
                 okButton.fire();
                 window.close();
             } else {
-                AlertBox.display("Invalid Input!", "Please type an integer that is >= 0.");
+                alert();
             }
         });
-
 
         okButton.setOnAction(e -> {
             boolean isNumeric = false;
@@ -88,13 +84,12 @@ public class UserInputBox {
                     isNumeric = true;
                 }
             }
-
             // Validate input
-            if (isNumeric) {
+            if(isNumeric && (Integer.parseInt(strPosition) >= 0)) {
                 intPosition = Integer.parseInt(strPosition);
                 window.close();
             } else {
-                AlertBox.display("Invalid Input!", "Please type an integer that is >= 0.");
+                alert();
             }
         });
 
@@ -111,8 +106,11 @@ public class UserInputBox {
         return intPosition;
     }
 
+    /** closeProgram() method is used to determine if user wishes to quit by calling display() method from ConfirmBox class
+     * @author Derek DiLeo
+     */
     private static void closeProgram() {
-        Boolean answer = ConfirmBox.display("Exit?", "Are you sure you want to exit?");
+        Boolean answer = ConfirmBox.display("", "Are you sure you want to quit?");
         if(answer) {
             System.out.println("Window Closed!");
             window.close();
@@ -120,11 +118,23 @@ public class UserInputBox {
         }
     }
 
+    /** isDigit() is a method which is called for each charAt(i) to ensure user input is an integer
+     * @param c extracted from user input using str.charAt(i) for 0 <= i < str.length
+     * @return whether char c is a digit 0-9
+     * @author Derek DiLeo
+     */
      private static boolean isDigit(char c) {
         if(c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9' || c == '0') {
             return true;
         }
         return false;
+    }
+
+    /** This alert is called if user input is not numeric (validated with isDigit() above) or if input is negative
+     * @author Derek DiLeo
+     */
+    private static void alert() {
+        AlertBox.display("Invalid Input!", "Please type an integer that is >= 0.");
     }
 
 }
