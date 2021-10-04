@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -45,32 +46,32 @@ public class UserInputBox {
 
         Button okButton = new Button("Let's go!");
 
-//        // Allow enter key to be used for button select
-//        okButton.setOnKeyPressed(e -> {
-//
-//            boolean isNumeric = false;
-//
-//            // User input to String
-//            strPosition = textField.getCharacters().toString();
-//
-//            // Check each character of user input to validate if numeric
-//            for (int i = 0; i < strPosition.length(); i++) {
-//                isNumeric = false; // Safety to ensure inputs like 4d are not allowed
-//                char c = strPosition.charAt(i);
-//                if(isDigit(c)) {
-//                    isNumeric = true;
-//                }
-//            }
-//
-//            // Validate input
-//            if (isNumeric && e.getCode().equals((KeyCode.ENTER))) {
-//                intPosition = Integer.parseInt(strPosition);
-//                okButton.fire();
-//                window.close();
-//            } else {
-//                AlertBox.display("Invalid Input!", "Please type an integer that is >= 0.");
-//            }
-//        });
+        // Allow enter key to be used for button select
+        okButton.setOnKeyPressed(e -> {
+
+            boolean isNumeric = false;
+
+            // User input to String
+            strPosition = textField.getCharacters().toString();
+
+            // Check each character of user input to validate if numeric
+            for (int i = 0; i < strPosition.length(); i++) {
+                isNumeric = false; // Safety to ensure inputs like 4d are not allowed
+                char c = strPosition.charAt(i);
+                if(isDigit(c)) {
+                    isNumeric = true;
+                }
+            }
+
+            // Validate input
+            if (isNumeric && e.getCode().equals((KeyCode.ENTER))) {
+                intPosition = Integer.parseInt(strPosition);
+                okButton.fire();
+                window.close();
+            } else {
+                AlertBox.display("Invalid Input!", "Please type an integer that is >= 0.");
+            }
+        });
 
 
         okButton.setOnAction(e -> {
