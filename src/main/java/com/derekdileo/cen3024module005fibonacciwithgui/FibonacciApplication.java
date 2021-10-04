@@ -98,8 +98,7 @@ public class FibonacciApplication extends Application {
         window.show();
     }
 
-    /** Method uses ConfirmBox class to confirm that user wants to quit
-     *
+    /** Method uses ConfirmBox class to confirm if user wants to quit
      */
     private void closeProgram() {
         // Ask if user wants to exit
