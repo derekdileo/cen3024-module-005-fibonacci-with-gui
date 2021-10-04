@@ -27,7 +27,7 @@ public class FibonacciApplication extends Application {
         yAxis.setLabel("Execution time in nanoSeconds");
 
         // Create LineChart from axes and set title
-        LineChart<Number, Number> lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+        LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Recursive vs. Iterative");
 
         // Create and name series for recursive and iterative coordinate inputs
@@ -37,8 +37,7 @@ public class FibonacciApplication extends Application {
         iterativeSeries.setName("Iterative Time Complexity");
 
         // Add all (x,y) coordinates (Key, Values) to each series from generated LinkedHashMaps in main() method
-        int size = recursiveTimes.size();
-        for(int i = 0; i < size; i++) {
+        for(int i = 0; i < recursiveTimes.size(); i++) {
             recursiveSeries.getData().add(new XYChart.Data(i, recursiveTimes.get(i)));
             iterativeSeries.getData().add(new XYChart.Data(i, iterativeTimes.get(i)));
         }
