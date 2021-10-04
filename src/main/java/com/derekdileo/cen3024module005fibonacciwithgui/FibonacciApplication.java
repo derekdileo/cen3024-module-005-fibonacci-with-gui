@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/** Application to compute and display graph of time complexities of recursive and iterative fibonacci executions.
+/** Application to compute and display graph with time complexities of recursive and iterative fibonacci executions.
  * @author Derek DiLeo
   */
 public class FibonacciApplication extends Application {
@@ -21,7 +21,7 @@ public class FibonacciApplication extends Application {
     public static Map<Integer, Long> recursiveTimes = new LinkedHashMap<>();
     public static Map<Integer, Long> iterativeTimes = new LinkedHashMap<>();
 
-    /** main() calls launch() which calls start(Stage stage) to run program
+    /** main() calls launch() which calls start() to run program
      * @param args mandatory String[] array for console line arguments of data type String
      */
     public static void main(String[] args) {
@@ -40,7 +40,6 @@ public class FibonacciApplication extends Application {
      * @param stage
      * @throws IOException
      */
-
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -110,5 +109,4 @@ public class FibonacciApplication extends Application {
             window.close();
         }
     }
-
 }
